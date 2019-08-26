@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Fluo</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="welcome">Bem Vindo ao Fluo</string>
+    <string name="register_title">Crie sua conta</string>
+
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="signup">Cadastre-se</string>
+    <string name="register_signup">Cadastrar</string>
+    <string name="forgot_password">Esqueci minha senha</string>
+    <string name="forgot_title">Esqueci minha senha</string>
+    <string name="forgot_send">Enviar nova senha</string>
+    <string name="forgot_message">Você receberá um e-mail com a nova senha</string>
+    <string name="login">Entrar</string>
+    <string name="name">Nome</string>
+
+    <string name="ops">Ops</string>
+    <string name="invalid_user_and_pass">Usuário ou senha inválidos</string>
+    <string name="ok">Ok</string>
+
+    <string name="menuhome">Home</string>
+    <string name="menuprojects">Projetos</string>
+
+    <string name="emptytask">Nenhuma tarefa</string>
+    <string name="emptytasksutitle">Você não tem nenhuma tarefa pra fazer</string>
+
+    <string name="textWelcome">Olá %s</string>
+    <string name="textNoTasks">Você não tem nenhuma tarefa</string>
+    <string name="textOneTasks">Você tem uma tarefa</string>
+    <string name="textAnyTasks">Você tem %s tarefas</string>
+
+
+    <string name="success">Sucesso</string>
+    <string name="register_duplicate">Usuário já existe</string>
+    <string name="register_success">Usuário cadastrado com sucesso</string>
+
+
+    <string name="project_tasks">%s tarefas</string>
+    <string name="project_task">%s tarefa</string>
+    <string name="project_notasks">Nenhuma tarefa</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

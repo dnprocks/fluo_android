@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <com.loopeer.shadow.ShadowView
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            app:cornerRadius="6dp"
+            app:shadowMargin="6dp"
+            app:shadowRadius="6dp">
+
+        <!--android:background="@color/transparent"-->
+        <!--android:elevation="2dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                >
+
+            <!--android:layout_alignParentLeft="true"-->
+            <View android:background="@drawable/background_yellow_task"
+                  android:layout_width="4dp"
+                  android:layout_height="match_parent"
+            ></View>
+
+            <!--android:background="@color/endGreen"-->
+            <!--<ImageView-->
+
+                    <!--android:src="@drawable/circle_open"-->
+                    <!--android:id="@+id/check"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_width="18dp"-->
+                    <!--android:layout_height="18dp"/>-->
+
+            <ImageButton
+                    android:id="@+id/check"
+                    android:background="@color/transparent"
+                    android:src="@drawable/circle_open"
+                    android:layout_width="44dp"
+                    android:layout_height="match_parent"/>
+
+            <!--<TextView-->
+                    <!--android:id="@+id/time"-->
+                    <!--android:layout_marginLeft="11dp"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:layout_toRightOf="@+id/check"-->
+                    <!--android:hint="08:00 AM"-->
+                    <!--android:textSize="11sp"-->
+                    <!--android:textColor="@color/textTime"-->
+                    <!--android:fontFamily="@font/robotomight"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"/>-->
+            <TextView
+                    android:id="@+id/time"
+                    android:layout_toRightOf="@id/check"
+                    android:textColor="@color/textGray"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/robotolight"
+                    android:textSize="11sp"
+                    android:text="11:00 PM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <!--<TextView-->
+
+                    <!--android:id="@+id/name"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:textColor="@color/colorTitleText"-->
+                    <!--android:textColorHint="@color/colorTitleText"-->
+                    <!--android:hint="Go jogging with ChristinGo jogging with Christin"-->
+                    <!--android:fontFamily="@font/robotomedium"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_toStartOf="@id/bell"-->
+                    <!--android:layout_toEndOf="@id/time"-->
+            <!--/>-->
+
+            <TextView
+                    android:id="@+id/name"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="30dp"
+                    android:fontFamily="@font/robotomedium"
+                    android:textSize="14sp"
+                    android:text="Task Name"
+                    android:textColor="@color/colorTitleText"
+                    android:layout_toRightOf="@id/time"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <!--<ImageView-->
+
+                    <!--android:id="@+id/bell"-->
+                    <!--android:src="@drawable/bell"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"/>-->
+            <ImageView
+                    android:id="@+id/bell"
+                    android:src="@drawable/bell"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="11dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </com.loopeer.shadow.ShadowView>
+
+</LinearLayout>

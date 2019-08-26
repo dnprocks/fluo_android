@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.fragments.NoTaskFragment"
+                android:background="@color/background"
+>
+
+    <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageButton
+
+                android:id="@+id/brand"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brandempty"
+                android:background="@color/transparent"/>
+
+        <TextView
+                android:id="@+id/title"
+                android:text="@string/emptytask"
+                android:textSize="22sp"
+                android:fontFamily="@font/robotomedium"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/colorTitleText"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/brand"/>
+
+        <TextView
+                android:fontFamily="@font/robotomight"
+                android:textSize="17sp"
+                android:text="@string/emptytasksutitle"
+                android:layout_marginTop="11dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/title"
+                android:textColor="@color/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

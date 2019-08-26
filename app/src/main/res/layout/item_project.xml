@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_marginHorizontal="7dp"
+
+>
+
+    <com.loopeer.shadow.ShadowView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            app:cornerRadius="6dp"
+            app:shadowMargin="6dp"
+            app:shadowRadius="6dp">
+
+        <RelativeLayout
+                android:paddingHorizontal="5dp"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@color/white"
+                android:elevation="2dp">
+
+            <RelativeLayout
+                    android:id="@+id/icon"
+                    android:layout_marginTop="32dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="65.1dp"
+                        android:layout_height="65.1dp"
+                        android:src="@drawable/ellipse"
+                />
+
+                <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/project"
+                />
+
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/name"
+                    android:fontFamily="@font/robotomedium"
+                    android:layout_marginTop="6.9dp"
+                    android:textSize="17sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/icon"
+                    android:gravity="center_horizontal"
+                    android:text="Cotemig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textproject"/>
+
+            <TextView
+                    android:id="@+id/quantityTasks"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginTop="6.9dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/name"
+                    android:text="23 tarefas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textquantitytasks"/>
+
+        </RelativeLayout>
+
+    </com.loopeer.shadow.ShadowView>
+
+
+</RelativeLayout>

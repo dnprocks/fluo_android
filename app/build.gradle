@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.cotemig.fluo"
+        minSdkVersion 26
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    // Recycle view
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    // Pacote retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    // Pacote de conversão de JSON para Model e Model para JSON
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    // Retirar quando colocar em produção os dois pacotes abaixo
+    // Interceptar requisições
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+    // Logar as requisições no LOGCAT
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    // Lib para download de imagens via url
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+
+    // Messages material design
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
+    // Lib para sombras
+    implementation 'com.loopeer.lib:shadow:0.0.3'
+
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

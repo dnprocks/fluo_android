@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.fragments.ProjectsFragment"
+                android:background="@color/background">
+
+    <!--<GridView-->
+            <!--android:id="@+id/gridProjects"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:columnWidth="160dp"-->
+            <!--android:horizontalSpacing="19dp"-->
+            <!--android:verticalSpacing="23dp"-->
+    <!--&gt;-->
+
+    <!--</GridView>-->
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/gridProjects"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+</RelativeLayout>

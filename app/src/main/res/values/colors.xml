@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="background">#f9fcff</color>
+    <color name="colorTitleText">#554e8f</color>
+
+    <color name="startGreen">#5de61a</color>
+    <color name="endGreen">#39a801</color>
+
+    <color name="startBlue">#7eb6ff</color>
+    <color name="endBlue">#5f87e7</color>
+    <color name="yellow">#ffd506</color>
+
+
+
+    <color name="textButtonColor">#fcfcfc</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="textmenu">#5f87e7</color>
+    <color name="textmenuinactive">#9f9f9f</color>
+    <color name="transparent">#00000000</color>
+    <color name="subtitle">#82a0b7</color>
+    <color name="textProject">#686868</color>
+    <color name="textQuantity">#a1a1a1</color>
+    <color name="textTime">#c6c6c8</color>
+    <color name="textGray">#c6c6c8</color>
+
+    <color name="textproject">#686868</color>
+    <color name="textquantitytasks">#a1a1a1</color>
+</resources>
