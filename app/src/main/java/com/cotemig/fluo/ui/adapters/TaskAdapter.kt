@@ -10,6 +10,7 @@ import com.cotemig.fluo.helper.DateTime
 
 import com.cotemig.fluo.models.Task
 import kotlinx.android.synthetic.main.item_task2.view.*
+import java.text.FieldPosition
 
 class TaskAdapter(var context: Context, var list: List<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
@@ -43,6 +44,15 @@ class TaskAdapter(var context: Context, var list: List<Task>) : RecyclerView.Ada
 
         notifyDataSetChanged()
 
+    }
+
+    fun removeAt(position: Int){
+        listTask.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun reload(){
+        notifyDataSetChanged()
     }
 
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

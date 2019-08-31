@@ -109,6 +109,17 @@
                         android:textColor="@color/textButtonColor"/>
 
 
+                <ProgressBar
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone"
+                        android:id="@+id/progress"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/btnRegister"
+                        android:layout_centerHorizontal="true"
+
+                        />
+
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

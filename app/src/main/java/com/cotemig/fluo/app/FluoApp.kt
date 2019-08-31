@@ -12,9 +12,21 @@ class FluoApp: Application {
         instance = this
     }
 
+    object Directories {
+        var IMAGES = "images"
+
+    }
+
+    object FileProvider {
+        var authority = "br.com.fluo.fluo.files.provider.authority.1.x.1.1.abc.xyz_xpna"
+    }
+
     companion object {
 
         //https://github.com/dirceubelem/task-api
+
+        val TYPE_IMAGE = ".png"
+        var URL_IMAGE = "https://file.fluo.site/"
 
         var account: Account? = null
 

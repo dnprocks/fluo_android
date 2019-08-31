@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
@@ -41,8 +42,8 @@ class LoginActivity : AppCompatActivity() {
         // TODO remover
         if (BuildConfig.DEBUG) {
 
-            email.setText("dirceu@fourtime.com")
-            password.setText("senha123")
+            email.setText("danielnpimentel@gmail.com")
+            password.setText("7jdp776a")
 
         }
     }
@@ -55,6 +56,8 @@ class LoginActivity : AppCompatActivity() {
 
     fun login() {
 
+        progress.visibility = View.VISIBLE
+
         var account = Account()
         account.email = email.text.toString()
         account.password = password.text.toString()
@@ -65,6 +68,9 @@ class LoginActivity : AppCompatActivity() {
         call.enqueue(object : retrofit2.Callback<Account> {
 
             override fun onResponse(call: Call<Account>?, response: Response<Account>?) {
+
+
+                progress.visibility = View.GONE
 
                 response?.let {
 
@@ -98,18 +104,12 @@ class LoginActivity : AppCompatActivity() {
 
                 }
 
-//                response.let {
-//                    if(it!!.code() == 200){
-//                        // Chamar outra intent
-//                        Toast.makeText(this@LoginActivity,"Tudo certo", Toast.LENGTH_LONG).show()
-//                    }else{
-//                        Toast.makeText(this@LoginActivity,"Errou", Toast.LENGTH_LONG).show()
-//                    }
-//                }
-
             }
 
             override fun onFailure(call: Call<Account>?, t: Throwable?) {
+
+                progress.visibility = View.GONE
+
                 Toast.makeText(this@LoginActivity, "Errou", Toast.LENGTH_LONG).show()
 //                MaterialDialog.Builder(this@LoginActivity)
 //                    .theme(Theme.LIGHT)

@@ -49,6 +49,9 @@ dependencies {
     // Lib para sombras
     implementation 'com.loopeer.lib:shadow:0.0.3'
 
+    // Lib para permissões
+    implementation 'com.karumi:dexter:5.0.0'
+
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     testImplementation 'junit:junit:4.12'

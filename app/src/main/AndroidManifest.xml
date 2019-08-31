@@ -3,6 +3,10 @@
           package="com.cotemig.fluo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.media.action.IMAGE_CAPTURE"/>
 
     <application
             android:name=".app.FluoApp"
@@ -12,6 +16,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="br.com.fluo.fluo.files.provider.authority.1.x.1.1.abc.xyz_xpna"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
+
+
         <activity android:name=".ui.activities.ForgotActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.FullScreen">

@@ -8,9 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-
 import com.cotemig.fluo.R
-import com.cotemig.fluo.models.Project
+import com.cotemig.fluo.helper.SwipeRecyclerViewHelper
 import com.cotemig.fluo.models.Task
 import com.cotemig.fluo.services.RetrofitInitializer
 import com.cotemig.fluo.ui.activities.MainActivity
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_task.*
 import retrofit2.Call
 import retrofit2.Response
 
-class TaskFragment : Fragment() {
+class TaskFragment : Fragment(), SwipeRecyclerViewHelper.Companion.SwipeRecyclerViewListener {
 
     //    private var projectId: String? = null
     var projectId: String = ""
@@ -47,7 +46,7 @@ class TaskFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_task, container, false)
 
-        getTask()
+        getTasks()
 
         var search = view.findViewById<SearchView>(R.id.search)
 
@@ -84,7 +83,7 @@ class TaskFragment : Fragment() {
 
     }
 
-    fun getTask() {
+    fun getTasks() {
 
 
         var s = RetrofitInitializer().serviceTask()
@@ -108,6 +107,8 @@ class TaskFragment : Fragment() {
 
                         tasklist.adapter = adapter
 
+                        SwipeRecyclerViewHelper.createSwipe(context, tasklist, this@TaskFragment)
+
                     }
 
                 }
@@ -122,5 +123,13 @@ class TaskFragment : Fragment() {
 
     }
 
+    override fun removeSelectedItem(position: Int) {
+        adapter.removeAt(position)
 
+        // TODO: Implementar chamada na API para excluir a tarefa
+    }
+
+    override fun reload() {
+        adapter.reload()
+    }
 }

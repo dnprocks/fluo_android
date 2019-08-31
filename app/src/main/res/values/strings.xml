@@ -42,4 +42,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="confirm">Confirmação</string>
+    <string name="delete_task">Tem certeza que deseja excluir esta tarefa?</string>
+    <string name="confirm_yes">Sim</string>
+    <string name="confirm_no">Não</string>
 </resources>

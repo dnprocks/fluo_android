@@ -76,11 +76,19 @@ class MyTaskFragment : Fragment() {
 
 //                        gridProjects.layoutManager = GridLayoutManager(context, 2)
 //                        gridProjects.adapter = ProjectRecyclerAdapter(context, it.body(), this@ProjectsFragment)
-                        myTasks.layoutManager = LinearLayoutManager(context)
 
-                        adapter = MyTaskAdpater(context, it.body())//TaskAdapter(context, it.body())
+                        if (it.body().size > 0) {
 
-                        myTasks.adapter = adapter
+                            myTasks.layoutManager = LinearLayoutManager(context)
+
+                            adapter = MyTaskAdpater(context, it.body())//TaskAdapter(context, it.body())
+
+                            myTasks.adapter = adapter
+                        } else {
+
+                            context.setFragment(NoTaskFragment())
+
+                        }
 
                     }
 

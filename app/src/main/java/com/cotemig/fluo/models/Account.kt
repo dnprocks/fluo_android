@@ -9,6 +9,7 @@ class Account{
     var email: String = ""
     var password: String = ""
     var token: String = ""
+    var picture: String = ""
 
     fun getJSON(): JSONObject{
         var json = JSONObject()
