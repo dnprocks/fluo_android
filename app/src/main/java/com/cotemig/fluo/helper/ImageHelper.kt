@@ -2,16 +2,21 @@ package com.cotemig.fluo.helper
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
+import org.jetbrains.annotations.Nullable
 import java.io.*
 
 class ImageHelper {
 
     companion object {
 
-        private val IMAGE_DIRECTORY = "/com.cotemig.fluo/"
+        private val IMAGE_DIRECTORY = "/br.com.fluo.fluo/"
 
         fun imagePath(): String {
             val wallpaperDirectory = File(
@@ -94,6 +99,92 @@ class ImageHelper {
             )
         }
 
+        fun normalizeImageForUri(context: Context, uri: Uri, rotate: Boolean) {
+            try {
+                Log.d("Fluo", "URI value = " + uri.path)
+                var exif = ExifInterface(uri.getPath())
+                Log.d("Fluo", "Exif value = $exif")
+                var orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED
+                )
+                if (rotate) {
+                    orientation = 6
+                }
+                var bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
+                var rotatedBitmap = rotateBitmap(bitmap, orientation)
+                if (bitmap != rotatedBitmap) {
+                    saveBitmapToFile(context, rotatedBitmap, uri)
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
+
+        private fun rotateBitmap(bitmap: Bitmap, orientation: Int): Bitmap? {
+            val matrix = Matrix()
+            when (orientation) {
+                ExifInterface.ORIENTATION_NORMAL -> return bitmap
+                ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.setScale(-1f, 1f)
+                ExifInterface.ORIENTATION_ROTATE_180 -> matrix.setRotate(180f)
+                ExifInterface.ORIENTATION_FLIP_VERTICAL -> {
+                    matrix.setRotate(180f)
+                    matrix.postScale(-1f, 1f)
+                }
+                ExifInterface.ORIENTATION_TRANSPOSE -> {
+                    matrix.setRotate(90f)
+                    matrix.postScale(-1f, 1f)
+                }
+                ExifInterface.ORIENTATION_ROTATE_90 -> matrix.setRotate(90f)
+                ExifInterface.ORIENTATION_TRANSVERSE -> {
+                    matrix.setRotate(-90f)
+                    matrix.postScale(-1f, 1f)
+                }
+                ExifInterface.ORIENTATION_ROTATE_270 -> matrix.setRotate(-90f)
+                else -> return bitmap
+            }
+            try {
+                val bmRotated =
+                    Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+                bitmap.recycle()
+
+                return bmRotated
+            } catch (e: OutOfMemoryError) {
+                e.printStackTrace()
+                return null
+            }
+
+        }
+
+        private fun saveBitmapToFile(context: Context, croppedImage: Bitmap?, saveUri: Uri?) {
+            if (saveUri != null) {
+                var outputStream: OutputStream? = null
+                try {
+                    outputStream = context.contentResolver.openOutputStream(saveUri!!)
+                    if (outputStream != null) {
+                        croppedImage!!.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+                    }
+                } catch (e: IOException) {
+
+                } finally {
+                    closeSilently(outputStream)
+                    croppedImage!!.recycle()
+                }
+            }
+        }
+
+        private fun closeSilently(@Nullable c: Closeable?) {
+            if (c == null) {
+                return
+            }
+            try {
+                c!!.close()
+            } catch (t: Throwable) {
+// Do nothing
+            }
+
+        }
 
     }
 

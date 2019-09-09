@@ -1,10 +1,9 @@
 package com.cotemig.fluo.services
 
 import com.cotemig.fluo.models.Account
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ServiceAccount {
 
@@ -17,6 +16,9 @@ interface ServiceAccount {
     @POST("account/forgot")
     fun forgetPassword(@Body account: Account): Call<Void>
 
+    @Multipart
+    @POST("account/photo")
+    fun sendPhoto(@Part image: MultipartBody.Part): Call<Account>
 
 
 }

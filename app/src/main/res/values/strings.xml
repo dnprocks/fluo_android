@@ -48,4 +48,17 @@
     <string name="delete_task">Tem certeza que deseja excluir esta tarefa?</string>
     <string name="confirm_yes">Sim</string>
     <string name="confirm_no">Não</string>
+
+    <string name="content_exit">Tem certeza que deseja sair do Fluo?</string>
+
+    <string name="select_menu">Selecione</string>
+    <string name="select_camera">Tirar uma foto</string>
+    <string name="select_gallery">Galeria de fotos</string>
+    <string name="select_exit">Sair do Fluo</string>
+
+    <string name="addtask_addnewtask">Adicionar nova tarefa</string>
+    <string name="addtask_addtask">Adicionar tarefa</string>
+    <string name="addtask_title">Título</string>
+    <string name="addtask_description">Descrição</string>
+    <string name="addtask_selectdate">Selecione a data de entrega</string>
 </resources>

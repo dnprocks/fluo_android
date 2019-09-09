@@ -4,31 +4,43 @@ import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.support.v7.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v4.content.FileProvider
+import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
+import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.Theme
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cotemig.fluo.R
 import com.cotemig.fluo.app.FluoApp
+import com.cotemig.fluo.helper.DateTime
 import com.cotemig.fluo.helper.ImageHelper
 import com.cotemig.fluo.helper.SDCardHelper
+import com.cotemig.fluo.helper.SharedPreferencesHelper
+import com.cotemig.fluo.models.Account
+import com.cotemig.fluo.services.RetrofitInitializer
+import com.cotemig.fluo.ui.dialogs.AddTaskDialog
 import com.cotemig.fluo.ui.fragments.MyTaskFragment
-import com.cotemig.fluo.ui.fragments.NoTaskFragment
 import com.cotemig.fluo.ui.fragments.ProjectsFragment
 import com.karumi.dexter.Dexter
-import com.karumi.dexter.DexterBuilder
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Response
 import java.io.File
 import java.io.IOException
+import java.text.FieldPosition
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,11 +64,9 @@ class MainActivity : AppCompatActivity() {
         howManyTask.setText(R.string.textNoTasks)
 
 
-        var url = "https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-300x300.png"
+//        var url = "https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-300x300.png"
 
-//        var url = FluoApp.URL_IMAGE.plus(FluoApp.account!!.picture)
-
-
+        var url = FluoApp.URL_IMAGE.plus(FluoApp.account!!.picture)
 
 
         Glide
@@ -85,8 +95,11 @@ class MainActivity : AppCompatActivity() {
 
         btnhome.callOnClick()
 
+        btnaddtask.setOnClickListener {
+            AddTaskDialog.getDialog().show(supportFragmentManager, "")
+        }
 
-        avatar.setOnClickListener{
+        avatar.setOnClickListener {
 
             photoClick(avatar, 1)
 
@@ -96,24 +109,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun photoClick(image: ImageView, type: Int){
+    fun photoClick(image: ImageView, type: Int) {
         this.type = type
         imaveViewChangeReference = image
         showMenuDialog()
     }
 
-    fun showMenuDialog(){
+    fun showMenuDialog() {
 
         Dexter.withActivity(this).withPermissions(
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
-        ).withListener(object : MultiplePermissionsListener{
+        ).withListener(object : MultiplePermissionsListener {
 
 
             override fun onPermissionsChecked(report: MultiplePermissionsReport) {
 
-                if(report.areAllPermissionsGranted()){
+                if (report.areAllPermissionsGranted()) {
                     showMenu()
                 } else {
 //                    "Foda-se fui...."
@@ -133,17 +146,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun showMenu(){
+    fun showMenu() {
 
         val pictureDialog = android.support.v7.app.AlertDialog.Builder(this)
 
-        pictureDialog.setTitle("Selecione")
+        pictureDialog.setTitle(R.string.select_menu)
 
-        val pictureDialogsItems = arrayOf("Tirar uma foto","Galeria de Fotos", "Sair do Fluo")
+        val pictureDialogsItems = arrayOf(
+            getString(R.string.select_camera),
+            getString(R.string.select_gallery),
+            getString(R.string.select_exit)
+        )
 
         pictureDialog.setItems(pictureDialogsItems) { dialog, which ->
 
-            when(which){
+            when (which) {
                 0 -> takePhotoCamera()
                 1 -> choosePhotoFromGalery()
                 2 -> exitFluo()
@@ -155,11 +172,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun takePhotoCamera(){
+    fun takePhotoCamera() {
 
-        var image = "fluoImage"
+        var image = DateTime.now().toString("yyyyMMddHHmmss")
 
-        val file = SDCardHelper.getSdCardFile(this, FluoApp.Directories.IMAGES, image + FluoApp.TYPE_IMAGE)
+        Toast.makeText(this, image, Toast.LENGTH_LONG).show()
+
+        val file =
+            SDCardHelper.getSdCardFile(this, FluoApp.Directories.IMAGES, image + FluoApp.TYPE_IMAGE)
 
         pictureFile = file.absolutePath
 
@@ -171,7 +191,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun choosePhotoFromGalery(){
+    fun choosePhotoFromGalery() {
 
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(galleryIntent, GALLERY)
@@ -182,18 +202,18 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         // Imagem selecionada a partir da galeria
-        data?.let{
+        data?.let {
 
-            if(requestCode == GALLERY){
+            if (requestCode == GALLERY) {
 
                 val contentURI = it.data
 
-                try{
+                try {
 
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, contentURI)
                     saveBitmapFromGallery(bitmap)
 
-                }catch (e: IOException){
+                } catch (e: IOException) {
 
                 }
 
@@ -201,15 +221,15 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        if(data == null && requestCode == CAMERA){
+        if (data == null && requestCode == CAMERA) {
             saveBitmapFromCamera()
         }
 
     }
 
-    fun saveBitmapFromGallery(bitmap: Bitmap){
+    fun saveBitmapFromGallery(bitmap: Bitmap) {
         var bm = ImageHelper.cropToSquare(bitmap)
-        var fileName = ImageHelper.imagePath("fluoImage").absolutePath
+        var fileName = ImageHelper.imagePath(DateTime.now().toString("yyyyMMddHHmmss")).absolutePath
         var file = ImageHelper.saveImage(this, bm, fileName)
 
         // Deletar arquivo antes
@@ -217,23 +237,103 @@ class MainActivity : AppCompatActivity() {
 
         Glide.with(this).load(myFile).apply(RequestOptions.circleCropTransform()).into(avatar)
 
-        // sendFile(myFi)
+         sendFile(myFile)
     }
 
-    fun saveBitmapFromCamera(){
+    fun saveBitmapFromCamera() {
         var bitmap = BitmapFactory.decodeFile(pictureFile)
+
+        var rotate = bitmap.height < bitmap.width
+
         bitmap = ImageHelper.cropToSquare(bitmap)
 
         ImageHelper.saveImage(this, bitmap, pictureFile)
 
         var file = File(pictureFile)
 
-        Glide.with(this).load(file).apply(RequestOptions.circleCropTransform()).into(avatar)
+        var uri = Uri.fromFile(file)
 
+        ImageHelper.normalizeImageForUri(this, uri, rotate)
+
+        Glide.with(this).load(file).apply(RequestOptions.circleCropTransform()).into(avatar)
+        sendFile(file)
 
     }
 
-    fun exitFluo(){
+    fun sendFile(file: File) {
+
+        var s = RetrofitInitializer().serviceAccount()
+
+        var call = s.sendPhoto(
+            image = MultipartBody.Part.createFormData(
+                "fileName", file.name,
+                RequestBody.create(MediaType.parse("image/*"), file)
+            )
+        )
+
+        call.enqueue(object : retrofit2.Callback<Account> {
+
+            override fun onResponse(call: Call<Account>?, response: Response<Account>?) {
+
+            }
+
+            override fun onFailure(call: Call<Account>?, t: Throwable?) {
+
+            }
+
+        })
+
+    }
+
+
+    // Envio de multiplos arquivos
+    fun sendFile(file: List<File>, position: Int) {
+
+        if (position > file.size) {
+
+
+            var s = RetrofitInitializer().serviceAccount()
+
+            var call = s.sendPhoto(
+                image = MultipartBody.Part.createFormData(
+                    "fileName", file[position].name,
+                    RequestBody.create(MediaType.parse("image/*"), file[position])
+                )
+            )
+
+            call.enqueue(object : retrofit2.Callback<Account> {
+
+                override fun onResponse(call: Call<Account>?, response: Response<Account>?) {
+                    sendFile(file, position + 1)
+                }
+
+                override fun onFailure(call: Call<Account>?, t: Throwable?) {
+
+                }
+
+            })
+        } else {
+            // TODO: Sucesso
+        }
+
+    }
+
+    fun exitFluo() {
+
+        MaterialDialog.Builder(this)
+            .theme(Theme.LIGHT)
+            .title(R.string.confirm)
+            .content(R.string.content_exit)
+            .positiveText(R.string.confirm_yes)
+            .onPositive { dialog, which ->
+                SharedPreferencesHelper.delete(this, "account", "userData")
+
+                var intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+
+                finish()
+            }.negativeText(R.string.confirm_no)
+            .show()
 
     }
 
@@ -271,8 +371,8 @@ class MainActivity : AppCompatActivity() {
 
     fun setFragmentAndAddToBackstack(f: Fragment) {
         val ft = supportFragmentManager.beginTransaction()
-        ft.addToBackStack(null)
         ft.replace(R.id.content, f)
+        ft.addToBackStack(null)
         ft.commit()
     }
 }

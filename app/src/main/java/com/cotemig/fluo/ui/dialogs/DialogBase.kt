@@ -8,7 +8,7 @@ abstract class DialogBase : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setStyle(STYLE_NO_FRAME, R.style.Theme_Translucent)
+        setStyle(STYLE_NO_FRAME, android.R.style.Theme_Translucent)
 //        setStyle(R.style.PauseDialog, android.R.style.Theme_Translucent)
         isCancelable = false
     }
