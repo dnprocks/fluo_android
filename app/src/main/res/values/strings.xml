@@ -55,6 +55,7 @@
     <string name="select_camera">Tirar uma foto</string>
     <string name="select_gallery">Galeria de fotos</string>
     <string name="select_exit">Sair do Fluo</string>
+    <string name="select_download_database">Baixar banco</string>
 
     <string name="addtask_addnewtask">Adicionar nova tarefa</string>
     <string name="addtask_addtask">Adicionar tarefa</string>

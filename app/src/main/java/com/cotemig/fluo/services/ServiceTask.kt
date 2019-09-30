@@ -20,4 +20,7 @@ interface ServiceTask {
     @GET("account/tasks")
     fun getMyTasks(): Call<List<Task>>
 
+    @POST("task")
+    fun newTask(@Body task: Task): Call<Void>
+
 }

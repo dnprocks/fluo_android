@@ -8,6 +8,8 @@
 
     <color name="startGreen">#5de61a</color>
     <color name="endGreen">#39a801</color>
+    <color name="greenSolid">#1ed102</color>
+
 
     <color name="startBlue">#7eb6ff</color>
     <color name="endBlue">#5f87e7</color>
@@ -30,4 +32,5 @@
 
     <color name="textproject">#686868</color>
     <color name="textquantitytasks">#a1a1a1</color>
+    <color name="line">#cfcfcf</color>
 </resources>

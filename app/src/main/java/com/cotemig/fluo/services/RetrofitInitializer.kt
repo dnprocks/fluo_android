@@ -1,7 +1,6 @@
 package com.cotemig.fluo.services
 
 import com.cotemig.fluo.app.FluoApp
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -74,7 +73,11 @@ class RetrofitInitializer {
     }
 
     fun serviceTask(): ServiceTask {
-        return  retrofit.create(ServiceTask::class.java)
+        return retrofit.create(ServiceTask::class.java)
+    }
+
+    fun serviceDatabase(): ServiceDatabase {
+        return retrofit.create(ServiceDatabase::class.java)
     }
 
 //     fun serviceTime(): ServiceTime {

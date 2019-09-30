@@ -17,6 +17,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
+
         <provider
                 android:name="android.support.v4.content.FileProvider"
                 android:authorities="br.com.fluo.fluo.files.provider.authority.1.x.1.1.abc.xyz_xpna"
@@ -28,13 +29,18 @@
         </provider>
 
         <activity
+                android:name=".ui.activities.AddTaskActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.Transparent"></activity>
+
+        <activity
                 android:name=".ui.activities.ForgotActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.FullScreen"></activity>
+                android:theme="@style/AppTheme.FullScreen" />
         <activity
                 android:name=".ui.activities.RegisterActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.FullScreen"></activity>
+                android:theme="@style/AppTheme.FullScreen" />
         <activity
                 android:name=".ui.activities.SplashActivity"
                 android:screenOrientation="portrait"
@@ -48,13 +54,11 @@
         <activity
                 android:name=".ui.activities.LoginActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.FullScreen"></activity> <!-- "android:theme="@style/Theme.AppCompat.Light.NoActionBar" -->
+                android:theme="@style/AppTheme.FullScreen" /> <!-- "android:theme="@style/Theme.AppCompat.Light.NoActionBar" -->
         <activity
                 android:name=".ui.activities.MainActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.FullScreen"></activity>
-
-
+                android:theme="@style/AppTheme.FullScreen" />
     </application>
 
 </manifest>

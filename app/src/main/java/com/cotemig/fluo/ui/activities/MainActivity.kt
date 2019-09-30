@@ -18,13 +18,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cotemig.fluo.R
 import com.cotemig.fluo.app.FluoApp
+import com.cotemig.fluo.database.fw.DAOBase
+import com.cotemig.fluo.database.model.TOTask
 import com.cotemig.fluo.helper.DateTime
 import com.cotemig.fluo.helper.ImageHelper
 import com.cotemig.fluo.helper.SDCardHelper
 import com.cotemig.fluo.helper.SharedPreferencesHelper
+import com.cotemig.fluo.helper.db.DBHelper
 import com.cotemig.fluo.models.Account
 import com.cotemig.fluo.services.RetrofitInitializer
-import com.cotemig.fluo.ui.dialogs.AddTaskDialog
 import com.cotemig.fluo.ui.fragments.MyTaskFragment
 import com.cotemig.fluo.ui.fragments.ProjectsFragment
 import com.karumi.dexter.Dexter
@@ -36,11 +38,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
-import java.text.FieldPosition
 
 
 class MainActivity : AppCompatActivity() {
@@ -96,8 +98,13 @@ class MainActivity : AppCompatActivity() {
         btnhome.callOnClick()
 
         btnaddtask.setOnClickListener {
-            AddTaskDialog.getDialog().show(supportFragmentManager, "")
+//            AddTaskDialog.getDialog().show(supportFragmentManager, "")
+
+            var i = Intent(this, AddTaskActivity::class.java)
+            startActivity(i)
+
         }
+
 
         avatar.setOnClickListener {
 
@@ -106,6 +113,25 @@ class MainActivity : AppCompatActivity() {
         }
 
 //        createTimer()
+        testeSqlite()
+
+    }
+
+    fun testeSqlite(){
+
+        var listTasks = DAOBase.list(this,TOTask(), "name")
+        Toast.makeText(this, ""+ listTasks.size, Toast.LENGTH_LONG).show()
+
+        var task = TOTask()
+        task.id = DateTime.now().toString("yyyyMMddHHmmss")
+        task.name = "Teste de tarefa"
+        task.description = "Tarefa de teste com a descricao"
+        task.priority = 1f
+        task.createdAt = DateTime.now().millis.toFloat()
+        task.idAccountTo = DateTime.now().toString()
+        task.idProject = DateTime.now().toString()
+
+        DAOBase.insert(this, task)
 
     }
 
@@ -146,6 +172,33 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun downloadDatabase(){
+
+        var s = RetrofitInitializer().serviceDatabase()
+        var call = s.getDataBase()
+
+        call.enqueue(object : retrofit2.Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
+
+                response?.let {
+
+                    DBHelper.salvarBanco(this@MainActivity, it.body().byteStream())
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+
+
+
+            }
+
+        })
+
+    }
+
     fun showMenu() {
 
         val pictureDialog = android.support.v7.app.AlertDialog.Builder(this)
@@ -155,6 +208,7 @@ class MainActivity : AppCompatActivity() {
         val pictureDialogsItems = arrayOf(
             getString(R.string.select_camera),
             getString(R.string.select_gallery),
+            getString(R.string.select_download_database),
             getString(R.string.select_exit)
         )
 
@@ -163,7 +217,8 @@ class MainActivity : AppCompatActivity() {
             when (which) {
                 0 -> takePhotoCamera()
                 1 -> choosePhotoFromGalery()
-                2 -> exitFluo()
+                2 -> downloadDatabase()
+                3 -> exitFluo()
             }
 
         }
